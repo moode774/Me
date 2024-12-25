@@ -136,7 +136,7 @@
             position: fixed;
             bottom: 1rem;
             right: 1rem;
-            background: rgba(255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             padding: 0.6rem;
             border-radius: 10px;
@@ -208,6 +208,7 @@
             <div class="wishes-form">
                 <textarea id="wishInput" placeholder="أكتب أمنيتك هنا..."></textarea>
                 <button class="btn" id="sendWishButton">إرسال الأمنية</button>
+                <p id="statusMessage" style="text-align: center; color: white; font-size: 1rem;"></p> <!-- رسالة الحالة -->
             </div>
             <div class="wishes-container" id="wishesContainer"></div>
         </section>
@@ -221,10 +222,10 @@
     </div>
 
     <script>
-        // معالجة إرسال الأمنيات
         const wishInput = document.getElementById('wishInput');
         const sendWishButton = document.getElementById('sendWishButton');
         const wishesContainer = document.getElementById('wishesContainer');
+        const statusMessage = document.getElementById('statusMessage'); // عنصر الرسالة
 
         sendWishButton.addEventListener('click', () => {
             const wishText = wishInput.value.trim();
@@ -257,13 +258,19 @@
             .then(response => response.json())
             .then(data => {
                 if (data.ok) {
+                    statusMessage.textContent = "تم إرسال الأمنية بنجاح!";
+                    statusMessage.style.color = 'green';
                     console.log("تم إرسال الأمنية بنجاح");
                 } else {
+                    statusMessage.textContent = "حدث خطأ أثناء إرسال الأمنية!";
+                    statusMessage.style.color = 'red';
                     console.log("حدث خطأ أثناء إرسال الأمنية");
                 }
             })
             .catch(error => {
                 console.error("خطأ في الاتصال: ", error);
+                statusMessage.textContent = "حدث خطأ في الاتصال!";
+                statusMessage.style.color = 'red';
             });
 
             // مسح حقل الإدخال
