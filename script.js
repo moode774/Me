@@ -13,7 +13,7 @@ const wishInput = document.getElementById('wishInput');
 const sendWishButton = document.getElementById('sendWishButton');
 const wishesContainer = document.getElementById('wishesContainer');
 
-sendWishButton.addEventListener('click', () => {
+sendWishButton.addEventListener('click', async () => {
     const wishText = wishInput.value.trim();
     if (!wishText) return;
 
@@ -23,14 +23,32 @@ sendWishButton.addEventListener('click', () => {
     newWish.textContent = wishText;
     wishesContainer.insertBefore(newWish, wishesContainer.firstChild);
 
-    // إرسال عبر رابط تلجرام
+    // إرسال عبر Telegram API
     const botToken = '8160235911:AAH2f7QbITF9xcrzm916qf0bW1_-760Xvq4'; // توكن البوت الصحيح
-    const chatId = '7119515650';
-    const message = encodeURIComponent(`أمنية جديدة: ${wishText}`);
-    const telegramUrl = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${message}`;
+    const chatId = '7119515650'; // معرف المستخدم أو المجموعة
+    const message = `أمنية جديدة: ${wishText}`;
+    const telegramUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
 
-    // فتح الرابط في نافذة جديدة
-    window.open(telegramUrl, '_blank');
+    try {
+        const response = await fetch(telegramUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                chat_id: chatId,
+                text: message,
+            }),
+        });
+
+        if (response.ok) {
+            console.log('تم إرسال الرسالة بنجاح!');
+        } else {
+            console.error('فشل الإرسال:', await response.text());
+        }
+    } catch (error) {
+        console.error('حدث خطأ أثناء الإرسال:', error);
+    }
 
     // مسح حقل الإدخال
     wishInput.value = '';
