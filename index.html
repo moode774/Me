@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>عيد ميلاداا سعيد مريمي ❤️</title>
+    <title>عيد ميلاد سعيد مريمي ❤️</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/confetti-js@0.0.19/dist/index.min.js"></script>
@@ -178,7 +178,7 @@
     
     <div class="main-container">
         <section class="section">
-            <h1 class="title">✨ عيد ميلاد سعيد مريمي ✨</h1>
+            <h1 class="title">✨ يعيد ميلاد سعيد مريمي ✨</h1>
             <p class="message">
                 في هذا اليوم المميز، نحتفل بأجمل إنسانة<br>
                 كل عام وأنتِ تتألقين بجمالك وطيبة قلبك 💖
@@ -249,19 +249,31 @@
             // إرسال إلى بوت تلجرام عبر API
             const botToken = '8160235911:AAH2f7QbITF9xcrzm916qf0bW1_-760Xvq4'; // توكن البوت الصحيح
             const chatId = '7119515650';
-            const message = encodeURIComponent(`أمنية جديدة: ${wishText}`);
+            const message = `أمنية جديدة: ${wishText}`;
 
-            const telegramUrl = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${message}`;
-            
-            // استخدام fetch بدلاً من فتح نافذة جديدة
-            fetch(telegramUrl)
-                .then(response => response.json())
-                .then(data => {
-                    console.log('تم إرسال الأمنية بنجاح');
+            const telegramUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
+
+            fetch(telegramUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    chat_id: chatId,
+                    text: message,
                 })
-                .catch(error => {
-                    console.error('خطأ في إرسال الأمنية:', error);
-                });
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.ok) {
+                    console.log("تم إرسال الأمنية بنجاح");
+                } else {
+                    console.log("حدث خطأ أثناء إرسال الأمنية");
+                }
+            })
+            .catch(error => {
+                console.error("خطأ في الاتصال: ", error);
+            });
 
             // مسح حقل الإدخال
             wishInput.value = '';
