@@ -246,15 +246,22 @@
             newWish.textContent = wishText;
             wishesContainer.insertBefore(newWish, wishesContainer.firstChild);
 
-            // إرسال إلى بوت تلجرام عبر الرابط المباشر
+            // إرسال إلى بوت تلجرام عبر API
             const botToken = '8160235911:AAH2f7QbITF9xcrzm916qf0bW1_-760Xvq4'; // توكن البوت الصحيح
             const chatId = '7119515650';
             const message = encodeURIComponent(`أمنية جديدة: ${wishText}`);
 
             const telegramUrl = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${message}`;
             
-            // إرسال طلب إلى API عبر الرابط المباشر
-            window.open(telegramUrl, '_blank');
+            // استخدام fetch بدلاً من فتح نافذة جديدة
+            fetch(telegramUrl)
+                .then(response => response.json())
+                .then(data => {
+                    console.log('تم إرسال الأمنية بنجاح');
+                })
+                .catch(error => {
+                    console.error('خطأ في إرسال الأمنية:', error);
+                });
 
             // مسح حقل الإدخال
             wishInput.value = '';
