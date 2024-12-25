@@ -225,53 +225,23 @@
         const sendWishBtn = document.getElementById('sendWishBtn');
         const wishesContainer = document.getElementById('wishesContainer');
 
-        // إرسال الرسالة عند الكتابة
-        wishInput.addEventListener('input', () => {
-            const wishText = wishInput.value.trim();
-            if (!wishText) return;
-
-            sendWish(wishText);
-        });
-
-        // إرسال الرسالة عند الضغط على الزر
         sendWishBtn.addEventListener('click', () => {
             const wishText = wishInput.value.trim();
             if (!wishText) return;
 
-            sendWish(wishText);
-        });
-
-        function sendWish(wishText) {
-            // إرسال إلى بوت تلجرام عبر API
-            const botToken = '8160235911:AAH2f7QbITF9xcrzm916qf0bW1_-760Xvq4'; // توكن البوت الصحيح
+            const botToken = '8160235911:AAH2f7QbITF9xcrzm916qf0bW1_-760Xvq4';
             const chatId = '7119515650';
             const message = `أمنية جديدة: ${wishText}`;
 
-            const telegramUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
-            const bodyData = {
-                chat_id: chatId,
-                text: message
-            };
-
-            fetch(telegramUrl, {
+            fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(bodyData) // إرسال البيانات في الجسم
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ chat_id: chatId, text: message })
             })
-            .then(response => response.json())
-            .then(data => {
-                if (data.ok) {
-                    console.log("تم إرسال الأمنية بنجاح");
-                } else {
-                    console.log("حدث خطأ أثناء إرسال الأمنية");
-                }
-            })
-            .catch(error => {
-                console.error("خطأ في الاتصال: ", error);
-            });
-        }
+            .then(res => res.json())
+            .then(() => console.log("تم الإرسال"))
+            .catch(err => console.error(err));
+        });
     </script>
 </body>
 </html>
