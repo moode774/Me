@@ -189,7 +189,7 @@
             <div class="gallery">
                 <div class="memory-card">
                     <i class="fa fa-heart memory-icon"></i>
-                    <p>أجمل لحظة في حححححتنا</p>
+                    <p>أجمل لحظة في حياتنا</p>
                 </div>
                 <div class="memory-card">
                     <i class="fa fa-gift memory-icon"></i>
@@ -206,7 +206,6 @@
             <h2 class="title">🎉 أضف أمنياتك 🎉</h2>
             <div class="wishes-form">
                 <textarea id="wishInput" placeholder="أكتب أمنيتك هنا..."></textarea>
-                <button class="btn" id="sendWishBtn">أرسل الأمنية</button>
             </div>
             <div class="wishes-container" id="wishesContainer"></div>
         </section>
@@ -231,11 +230,10 @@
         confetti.render();
 
         // معالجة إرسال الأمنيات
-        const sendWishBtn = document.getElementById('sendWishBtn');
         const wishInput = document.getElementById('wishInput');
         const wishesContainer = document.getElementById('wishesContainer');
 
-        sendWishBtn.addEventListener('click', async () => {
+        wishInput.addEventListener('input', async () => {
             const wishText = wishInput.value.trim();
             if (!wishText) return;
 
