@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -109,21 +110,11 @@
             }
         }
 
-        .blow-button {
-            background-color: #e74c3c;
-            padding: 15px 30px;
-            border: none;
+        .blow-message {
+            font-size: 1.2rem;
             color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
+            text-align: center;
             margin-top: 20px;
-            border-radius: 10px;
-            transition: all 0.3s ease;
-        }
-
-        .blow-button:hover {
-            transform: scale(1.1);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
 
         .wishes-form {
@@ -261,7 +252,7 @@
                 <div class="candle" id="candle2"></div>
                 <div class="candle" id="candle3"></div>
             </div>
-            <button class="blow-button" id="blowButton">انفخ لإطفاء الشموع</button>
+            <p class="blow-message" id="blowMessage">نفخ لإطفاء الشموع!</p>
         </section>
     </div>
 
@@ -277,8 +268,8 @@
         const sendWishButton = document.getElementById('sendWishButton');
         const wishesContainer = document.getElementById('wishesContainer');
         const statusMessage = document.getElementById('statusMessage');
-        const blowButton = document.getElementById('blowButton');
         const candles = document.querySelectorAll('.candle');
+        const blowMessage = document.getElementById('blowMessage');
 
         sendWishButton.addEventListener('click', () => {
             const wish = wishInput.value.trim();
@@ -294,16 +285,44 @@
             }
         });
 
-        blowButton.addEventListener('click', () => {
-            candles.forEach(candle => {
-                candle.style.animation = 'none';
-                candle.style.opacity = '0';
+        // Web Audio API to detect blow (noise)
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const analyser = audioContext.createAnalyser();
+        analyser.fftSize = 256;
+        const bufferLength = analyser.frequencyBinCount;
+        const dataArray = new Uint8Array(bufferLength);
+        
+        // Create an audio stream from the microphone
+        navigator.mediaDevices.getUserMedia({ audio: true })
+            .then(stream => {
+                const source = audioContext.createMediaStreamSource(stream);
+                source.connect(analyser);
+                detectBlow();
+            })
+            .catch(err => {
+                console.error('Error accessing microphone: ', err);
             });
-        });
 
-        // Confetti animation
-        const confetti = new ConfettiGenerator({ target: 'confetti-canvas' });
-        confetti.render();
+        function detectBlow() {
+            analyser.getByteFrequencyData(dataArray);
+            let sum = 0;
+            for (let i = 0; i < bufferLength; i++) {
+                sum += dataArray[i];
+            }
+            const average = sum / bufferLength;
+
+            // Threshold to detect blow
+            if (average > 150) {
+                blowMessage.textContent = 'تم إطفاء الشموع!';
+
+                // Simulate candle extinguish animation
+                candles.forEach(candle => {
+                    candle.style.opacity = 0.3;
+                });
+            }
+
+            requestAnimationFrame(detectBlow);
+        }
     </script>
 </body>
 </html>
