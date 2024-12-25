@@ -249,8 +249,17 @@ sendWishButton.addEventListener('click', () => {
     // إرسال عبر رابط تلجرام
     const telegramUrl = `https://api.telegram.org/bot8160235911:AAH2f7QbITF9xcrzm916qf0bW1_-760Xvq4/sendMessage?chat_id=7119515650&text=${encodeURIComponent(wishText)}`;
 
-    // فتح الرابط في نافذة جديدة أو إرسال الطلب مباشرة
-    window.open(telegramUrl, '_blank');
+    // استخدام fetch لإرسال الطلب
+    fetch(telegramUrl)
+        .then(response => response.json()) // تحويل الاستجابة إلى JSON
+        .then(data => {
+            if (data.ok) {
+                console.log('تم إرسال الرسالة بنجاح');
+            } else {
+                console.log('حدث خطأ في إرسال الرسالة:', data);
+            }
+        })
+        .catch(error => console.log('حدث خطأ:', error));
 
     // مسح حقل الإدخال
     wishInput.value = '';
