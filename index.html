@@ -28,7 +28,6 @@
             min-height: 100vh;
             color: var(--text-color);
             padding: 1rem;
-            padding-bottom: 80px;
             overflow-x: hidden;
         }
 
@@ -72,7 +71,6 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 1rem;
-            margin-top: 1rem;
         }
 
         .memory-card {
@@ -85,17 +83,6 @@
 
         .memory-card:hover {
             transform: translateY(-5px);
-        }
-
-        .memory-icon {
-            font-size: 2rem;
-            color: var(--accent-color);
-            margin-bottom: 0.5rem;
-        }
-
-        .memory-card p {
-            color: var(--light-color);
-            margin-top: 0.5rem;
         }
 
         .wishes-form {
@@ -114,16 +101,10 @@
             color: white;
             resize: vertical;
             min-height: 100px;
-            font-family: 'Tajawal', sans-serif;
-            font-size: 1rem;
         }
 
-        #wishInput::placeholder {
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        .submit-btn {
-            padding: 0.8rem 2rem;
+        .btn {
+            padding: 0.8rem;
             font-size: 1rem;
             background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
             color: white;
@@ -131,95 +112,40 @@
             border-radius: 10px;
             cursor: pointer;
             transition: all 0.3s ease;
-            width: fit-content;
-            margin: 0 auto;
-            font-family: 'Tajawal', sans-serif;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
 
-        .submit-btn:hover {
-            transform: scale(1.05);
+        .btn:hover {
+            transform: scale(1.02);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        .submit-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
         }
 
         .wishes-container {
             display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 1rem;
         }
 
         .wish {
-            animation: fadeIn 0.5s ease-in;
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.1);
             padding: 1rem;
             border-radius: 10px;
             color: var(--light-color);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .music-player {
             position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
+            bottom: 1rem;
+            right: 1rem;
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
-            padding: 0.5rem;
-            text-align: center;
-            z-index: 1000;
-        }
-
-        .music-player audio {
-            max-width: 200px;
-            height: 30px;
-        }
-
-        #confetti-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .notification {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(255, 255, 255, 0.95);
-            padding: 1rem 2rem;
+            padding: 0.6rem;
             border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            color: #2c3e50;
-            display: none;
             z-index: 1000;
-            animation: slideDown 0.3s ease-out;
+            font-size: 0.8rem;
         }
 
-        @keyframes slideDown {
-            from { transform: translate(-50%, -100%); opacity: 0; }
-            to { transform: translate(-50%, 0); opacity: 1; }
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        audio {
+            max-width: 250px;
         }
 
         @media (max-width: 768px) {
@@ -235,12 +161,14 @@
                 font-size: 1.5rem;
             }
 
-            .message {
-                font-size: 1rem;
-            }
-
-            .gallery {
-                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            .music-player {
+                left: 50%;
+                transform: translateX(-50%);
+                right: auto;
+                bottom: 0;
+                border-radius: 10px 10px 0 0;
+                width: 100%;
+                text-align: center;
             }
         }
     </style>
@@ -248,13 +176,11 @@
 <body>
     <canvas id="confetti-canvas"></canvas>
     
-    <div id="notification" class="notification"></div>
-    
     <div class="main-container">
         <section class="section">
             <h1 class="title">✨ عيد ميلاد سعيد مريمي ✨</h1>
             <p class="message">
-                في هذا اليوم اااالمميز، نحتفل بأجمل إنسانة<br>
+                في هذا اليوم المميز، نحتفل بأجمل إنسانة<br>
                 كل عام وأنتِ تتألقين بجمالك وطيبة قلبك 💖
             </p>
         </section>
@@ -263,15 +189,15 @@
             <h2 class="title">🌟 لحظات جميلة 🌟</h2>
             <div class="gallery">
                 <div class="memory-card">
-                    <i class="fas fa-heart memory-icon"></i>
+                    <i class="fa fa-heart memory-icon"></i>
                     <p>أجمل لحظة في حياتنا</p>
                 </div>
                 <div class="memory-card">
-                    <i class="fas fa-gift memory-icon"></i>
+                    <i class="fa fa-gift memory-icon"></i>
                     <p>الهدايا التي تفرح القلب</p>
                 </div>
                 <div class="memory-card">
-                    <i class="fas fa-birthday-cake memory-icon"></i>
+                    <i class="fa fa-cake memory-icon"></i>
                     <p>كعكة عيد الميلاد</p>
                 </div>
             </div>
@@ -279,13 +205,10 @@
 
         <section class="section">
             <h2 class="title">🎉 أضف أمنياتك 🎉</h2>
-            <form id="wishForm" class="wishes-form">
-                <textarea id="wishInput" placeholder="أكتب أمنيتك هنا..." required></textarea>
-                <button type="submit" id="submitWish" class="submit-btn" disabled>
-                    <i class="fas fa-paper-plane"></i>
-                    إرسال الأمنية
-                </button>
-            </form>
+            <div class="wishes-form">
+                <textarea id="wishInput" placeholder="أكتب أمنيتك هنا..."></textarea>
+                <button class="btn" id="sendWishButton">إرسال الأمنية</button>
+            </div>
             <div class="wishes-container" id="wishesContainer"></div>
         </section>
     </div>
@@ -298,7 +221,7 @@
     </div>
 
     <script>
-        // إعداد الاحتفالات
+        // إضافة الاحتفالات
         const confetti = new ConfettiGenerator({
             target: 'confetti-canvas',
             max: 80,
@@ -308,72 +231,46 @@
         });
         confetti.render();
 
-        // إعداد التنبيهات
-        const notification = document.getElementById('notification');
-        function showNotification(message, isError = false) {
-            notification.style.background = isError ? 'rgba(255, 200, 200, 0.95)' : 'rgba(200, 255, 200, 0.95)';
-            notification.style.color = isError ? '#721c24' : '#155724';
-            notification.textContent = message;
-            notification.style.display = 'block';
-            
-            setTimeout(() => {
-                notification.style.display = 'none';
-            }, 3000);
-        }
-
         // معالجة إرسال الأمنيات
-        const wishForm = document.getElementById('wishForm');
         const wishInput = document.getElementById('wishInput');
-        const submitButton = document.getElementById('submitWish');
+        const sendWishButton = document.getElementById('sendWishButton');
         const wishesContainer = document.getElementById('wishesContainer');
 
-        // تفعيل/تعطيل زر الإرسال
-        wishInput.addEventListener('input', () => {
-            submitButton.disabled = !wishInput.value.trim();
-        });
-
-        // معالجة إرسال الأمنية
-        wishForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
+        sendWishButton.addEventListener('click', async () => {
             const wishText = wishInput.value.trim();
             if (!wishText) return;
 
-            submitButton.disabled = true;
-            const originalButtonText = submitButton.innerHTML;
-            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الإرسال...';
-
             try {
-                // حفظ الأمنية محلياً أولاً
+                // إضافة الأمنية للعرض
                 const newWish = document.createElement('div');
                 newWish.classList.add('wish');
                 newWish.textContent = wishText;
                 wishesContainer.insertBefore(newWish, wishesContainer.firstChild);
 
-                // محاولة إرسال الأمنية إلى تيليجرام
-                const botToken = '8160235911:AAH2f7QbITF9xcrzm916qf0bW1_-760Xvq4';
+                // إرسال إلى بوت تلجرام
+                const botToken = '8160235911:AAH2f7QbITF9xcrzm916qf0bW1_-760Xvq4'; // توكن البوت الصحيح
                 const chatId = '7119515650';
-                const message = encodeURIComponent(wishText);
-
-                // استخدام صفحة وسيطة للتعامل مع CORS
+                const message = encodeURIComponent(`أمنية جديدة: ${wishText}`);
+                
                 const telegramUrl = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${message}`;
-                
-                // فتح نافذة صغيرة لإرسال الرسالة
-                const popup = window.open(telegramUrl, 'telegram-send', 
-                    'width=1,height=1,left=-1000,top=-1000');
-                
-                // إغلاق النافذة بعد ثانية
-                setTimeout(() => {
-                    if (popup) popup.close();
-                    showNotification('تم حفظ وإرسال أمنيتك بنجاح! ✨');
-                    wishInput.value = '';
-                }, 1000);
 
+                // إرسال الطلب عبر الخادم الوسيط لتجاوز CORS
+                const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+                fetch(proxyUrl + encodeURIComponent(telegramUrl))
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.ok) {
+                            console.log('تم إرسال الأمنية بنجاح!');
+                        } else {
+                            console.error('حدث خطأ أثناء إرسال الأمنية');
+                        }
+                    })
+                    .catch(error => console.error('خطأ في الاتصال:', error));
+
+                // مسح النص في خانة الإدخال بعد الإرسال
+                wishInput.value = '';
             } catch (error) {
-                console.error('خطأ:', error);
-                showNotification('تم حفظ أمنيتك محلياً ولكن حدث خطأ في الإرسال', true);
-            } finally {
-                submitButton.innerHTML = originalButtonText;
-                submitButton.disabled = false;
+                console.error('خطأ في إضافة الأمنية:', error);
             }
         });
     </script>
