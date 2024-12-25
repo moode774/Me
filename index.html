@@ -136,7 +136,7 @@
             position: fixed;
             bottom: 1rem;
             right: 1rem;
-            background: rgba(255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             padding: 0.6rem;
             border-radius: 10px;
@@ -207,7 +207,8 @@
             <h2 class="title">🎉 أضف أمنياتك 🎉</h2>
             <div class="wishes-form">
                 <textarea id="wishInput" placeholder="أكتب أمنيتك هنا..."></textarea>
-                <button class="btn" id="sendWishBtn">إرسال</button>
+                <button class="btn" id="sendWishButton">إرسال الأمنية</button>
+                <p id="statusMessage" style="text-align: center; color: white; font-size: 1rem;"></p> <!-- رسالة الحالة -->
             </div>
             <div class="wishes-container" id="wishesContainer"></div>
         </section>
@@ -222,25 +223,96 @@
 
     <script>
         const wishInput = document.getElementById('wishInput');
-        const sendWishBtn = document.getElementById('sendWishBtn');
+        const sendWishButton = document.getElementById('sendWishButton');
         const wishesContainer = document.getElementById('wishesContainer');
+        const statusMessage = document.getElementById('statusMessage'); // عنصر الرسالة
+        const confettiCanvas = document.getElementById('confetti-canvas');
+        const confetti = new ConfettiGenerator({ target: 'confetti-canvas' });
 
-        sendWishBtn.addEventListener('click', () => {
+        // دالة لبدء تأثير النفخ
+        function blowOutCandles() {
+            confetti.render(); // عرض تأثير الديكور (النفخ)
+        }
+
+        // إعداد الميكروفون للاستماع للصوت
+        navigator.mediaDevices.getUserMedia({ audio: true })
+            .then(stream => {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const analyser = audioContext.createAnalyser();
+                const microphone = audioContext.createMediaStreamSource(stream);
+                microphone.connect(analyser);
+
+                const bufferLength = analyser.frequencyBinCount;
+                const dataArray = new Uint8Array(bufferLength);
+
+                function detectBlow() {
+                    analyser.getByteFrequencyData(dataArray);
+                    let total = 0;
+                    for (let i = 0; i < bufferLength; i++) {
+                        total += dataArray[i];
+                    }
+                    const average = total / bufferLength;
+
+                    if (average > 50) {  // هنا نحدد الصوت المرتفع على أنه "نفخ"
+                        blowOutCandles();
+                    }
+                    requestAnimationFrame(detectBlow); // الاستمرار في الاستماع
+                }
+
+                detectBlow();
+            })
+            .catch(error => {
+                console.error("لم يتمكن من الوصول إلى الميكروفون: ", error);
+            });
+
+        sendWishButton.addEventListener('click', () => {
             const wishText = wishInput.value.trim();
             if (!wishText) return;
 
-            const botToken = '8160235911:AAH2f7QbITF9xcrzm916qf0bW1_-760Xvq4';
+            // إضافة الأمنية للعرض
+            const newWish = document.createElement('div');
+            newWish.classList.add('wish');
+            newWish.textContent = wishText;
+            wishesContainer.insertBefore(newWish, wishesContainer.firstChild);
+
+            // إرسال إلى بوت تلجرام عبر API
+            const botToken = '8160235911:AAH2f7QbITF9xcrzm916qf0bW1_-760Xvq4'; // توكن البوت الصحيح
             const chatId = '7119515650';
             const message = `أمنية جديدة: ${wishText}`;
 
-            fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+            const telegramUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
+            const bodyData = {
+                chat_id: chatId,
+                text: message
+            };
+
+            fetch(telegramUrl, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ chat_id: chatId, text: message })
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(bodyData) // إرسال البيانات في الجسم
             })
-            .then(res => res.json())
-            .then(() => console.log("تم الإرسال"))
-            .catch(err => console.error(err));
+            .then(response => response.json())
+            .then(data => {
+                if (data.ok) {
+                    statusMessage.textContent = "تم إرسال الأمنية بنجاح!";
+                    statusMessage.style.color = 'green';
+                    console.log("تم إرسال الأمنية بنجاح");
+                } else {
+                    statusMessage.textContent = "حدث خطأ أثناء إرسال الأمنية!";
+                    statusMessage.style.color = 'red';
+                    console.log("حدث خطأ أثناء إرسال الأمنية");
+                }
+            })
+            .catch(error => {
+                console.error("خطأ في الاتصال: ", error);
+                statusMessage.textContent = "حدث خطأ في الاتصال!";
+                statusMessage.style.color = 'red';
+            });
+
+            // مسح حقل الإدخال
+            wishInput.value = '';
         });
     </script>
 </body>
