@@ -136,7 +136,7 @@
             position: fixed;
             bottom: 1rem;
             right: 1rem;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 0.1);
             backdrop-filter: blur(10px);
             padding: 0.6rem;
             border-radius: 10px;
@@ -207,8 +207,7 @@
             <h2 class="title">🎉 أضف أمنياتك 🎉</h2>
             <div class="wishes-form">
                 <textarea id="wishInput" placeholder="أكتب أمنيتك هنا..."></textarea>
-                <button class="btn" id="sendWishButton">إرسال الأمنية</button>
-                <p id="statusMessage" style="text-align: center; color: white; font-size: 1rem;"></p> <!-- رسالة الحالة -->
+                <button class="btn" id="sendWishBtn">إرسال</button>
             </div>
             <div class="wishes-container" id="wishesContainer"></div>
         </section>
@@ -223,20 +222,26 @@
 
     <script>
         const wishInput = document.getElementById('wishInput');
-        const sendWishButton = document.getElementById('sendWishButton');
+        const sendWishBtn = document.getElementById('sendWishBtn');
         const wishesContainer = document.getElementById('wishesContainer');
-        const statusMessage = document.getElementById('statusMessage'); // عنصر الرسالة
 
-        sendWishButton.addEventListener('click', () => {
+        // إرسال الرسالة عند الكتابة
+        wishInput.addEventListener('input', () => {
             const wishText = wishInput.value.trim();
             if (!wishText) return;
 
-            // إضافة الأمنية للعرض
-            const newWish = document.createElement('div');
-            newWish.classList.add('wish');
-            newWish.textContent = wishText;
-            wishesContainer.insertBefore(newWish, wishesContainer.firstChild);
+            sendWish(wishText);
+        });
 
+        // إرسال الرسالة عند الضغط على الزر
+        sendWishBtn.addEventListener('click', () => {
+            const wishText = wishInput.value.trim();
+            if (!wishText) return;
+
+            sendWish(wishText);
+        });
+
+        function sendWish(wishText) {
             // إرسال إلى بوت تلجرام عبر API
             const botToken = '8160235911:AAH2f7QbITF9xcrzm916qf0bW1_-760Xvq4'; // توكن البوت الصحيح
             const chatId = '7119515650';
@@ -258,24 +263,15 @@
             .then(response => response.json())
             .then(data => {
                 if (data.ok) {
-                    statusMessage.textContent = "تم إرسال الأمنية بنجاح!";
-                    statusMessage.style.color = 'green';
                     console.log("تم إرسال الأمنية بنجاح");
                 } else {
-                    statusMessage.textContent = "حدث خطأ أثناء إرسال الأمنية!";
-                    statusMessage.style.color = 'red';
                     console.log("حدث خطأ أثناء إرسال الأمنية");
                 }
             })
             .catch(error => {
                 console.error("خطأ في الاتصال: ", error);
-                statusMessage.textContent = "حدث خطأ في الاتصال!";
-                statusMessage.style.color = 'red';
             });
-
-            // مسح حقل الإدخال
-            wishInput.value = '';
-        });
+        }
     </script>
 </body>
 </html>
