@@ -1,328 +1,419 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>عيد ميلاد سعيد مريمي ❤️</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/confetti-js@0.0.19/dist/index.min.js"></script>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>عيد ميلاد سعيد مريمي ❤️ - بالنفخ</title>
+  
+  <!-- الخطوط -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+  <!-- أيقونات -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <!-- مكتبة الكونفيتي -->
+  <script src="https://cdn.jsdelivr.net/npm/confetti-js@0.0.19/dist/index.min.js"></script>
 
-        :root {
-            --primary-color: #ff6b8b;
-            --secondary-color: #7c5cff;
-            --accent-color: #ffd93d;
-            --text-color: #2c3e50;
-            --light-color: #ffffff;
-        }
+  <style>
+    /* الأساسيات */
+    * {
+      margin: 0; 
+      padding: 0;
+      box-sizing: border-box;
+    }
+    :root {
+      --primary-color: #ff6b8b;
+      --secondary-color: #7c5cff;
+      --accent-color: #ffd93d;
+      --text-color: #2c3e50;
+      --light-color: #ffffff;
+    }
+    body {
+      font-family: 'Tajawal', sans-serif;
+      background: #000;
+      min-height: 100vh;
+      color: var(--text-color);
+      padding: 1rem;
+      overflow-x: hidden;
+      position: relative;
+    }
+    /* الحاوية الرئيسية */
+    .main-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      padding: 1rem;
+    }
+    .section {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      border-radius: 30px;
+      padding: 1.5rem;
+      box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      height: fit-content;
+    }
+    .title {
+      font-size: 2rem;
+      background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    .message {
+      font-size: 1.2rem;
+      color: var(--light-color);
+      line-height: 1.8;
+      text-align: center;
+      margin: 1rem 0;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+    }
+    .memory-card {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      padding: 1rem;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+    .memory-card:hover {
+      transform: translateY(-5px);
+    }
+    /* نموذج الأمنيات */
+    .wishes-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    #wishInput {
+      width: 100%;
+      padding: 0.8rem;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      resize: vertical;
+      min-height: 100px;
+    }
+    .btn {
+      padding: 0.8rem;
+      font-size: 1rem;
+      background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .btn:hover {
+      transform: scale(1.02);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+    .wishes-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+    .wish {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 1rem;
+      border-radius: 10px;
+      color: var(--light-color);
+    }
+    /* مشغل الموسيقى */
+    .music-player {
+      position: fixed;
+      bottom: 1rem;
+      right: 1rem;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      padding: 0.6rem;
+      border-radius: 10px;
+      z-index: 1000;
+      font-size: 0.8rem;
+    }
+    audio {
+      max-width: 250px;
+    }
 
-        body {
-            font-family: 'Tajawal', sans-serif;
-            background: #000;
-            min-height: 100vh;
-            color: var(--text-color);
-            padding: 1rem;
-            overflow-x: hidden;
-            position: relative;
-        }
+    /* الشموع */
+    .candles-section {
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+    .candle-container {
+      display: inline-flex;
+      gap: 1rem;
+    }
+    .candle {
+      width: 40px;
+      height: 60px;
+      background: #fefefe;
+      border-radius: 10px;
+      position: relative;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(255,255,255,0.2);
+      transition: transform 0.3s ease;
+    }
+    .candle:hover {
+      transform: translateY(-5px);
+    }
+    .flame {
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 10px;
+      height: 20px;
+      background: radial-gradient(circle at 50% 50%, #ffdf85 40%, #ff9e2c 70%, transparent 100%);
+      border-radius: 50% 50% 0 0;
+      animation: flicker 0.15s infinite alternate;
+    }
+    .wax {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      top: 0;
+      border-radius: 10px;
+      background: linear-gradient(to bottom, #ffffff, #ffe6ea 70%);
+    }
+    @keyframes flicker {
+      0% {
+        transform: translateX(-50%) scale(1);
+      }
+      100% {
+        transform: translateX(-50%) scale(1.1);
+      }
+    }
+    .candle.off .flame {
+      display: none;
+    }
 
-        .main-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            padding: 1rem;
-        }
-
-        .section {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            border-radius: 30px;
-            padding: 1.5rem;
-            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            height: fit-content;
-        }
-
-        .title {
-            font-size: 2rem;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-align: center;
-            margin-bottom: 1rem;
-        }
-
-        .message {
-            font-size: 1.2rem;
-            color: var(--light-color);
-            line-height: 1.8;
-            text-align: center;
-            margin: 1rem 0;
-        }
-
-        .candles-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 20px;
-            margin-top: 30px;
-        }
-
-        .candle {
-            width: 50px;
-            height: 150px;
-            background-color: #f39c12;
-            position: relative;
-            border-radius: 10px 10px 0 0;
-            animation: flicker 1s infinite alternate;
-        }
-
-        .candle::after {
-            content: '';
-            position: absolute;
-            top: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 20px;
-            height: 20px;
-            background-color: #e74c3c;
-            border-radius: 50%;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
-        }
-
-        @keyframes flicker {
-            0% {
-                opacity: 0.8;
-                transform: scale(1);
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1.05);
-            }
-        }
-
-        .blow-message {
-            font-size: 1.2rem;
-            color: white;
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .wishes-form {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        #wishInput {
-            width: 100%;
-            padding: 0.8rem;
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            resize: vertical;
-            min-height: 100px;
-        }
-
-        .btn {
-            padding: 0.8rem;
-            font-size: 1rem;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .btn:hover {
-            transform: scale(1.02);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        .wishes-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-        }
-
-        .wish {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 1rem;
-            border-radius: 10px;
-            color: var(--light-color);
-        }
-
-        .music-player {
-            position: fixed;
-            bottom: 1rem;
-            right: 1rem;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 0.6rem;
-            border-radius: 10px;
-            z-index: 1000;
-            font-size: 0.8rem;
-        }
-
-        audio {
-            max-width: 250px;
-        }
-
-        @media (max-width: 768px) {
-            .main-container {
-                grid-template-columns: 1fr;
-            }
-
-            .section {
-                padding: 1rem;
-            }
-
-            .title {
-                font-size: 1.5rem;
-            }
-
-            .music-player {
-                left: 50%;
-                transform: translateX(-50%);
-                right: auto;
-                bottom: 0;
-                border-radius: 10px 10px 0 0;
-                width: 100%;
-                text-align: center;
-            }
-        }
-    </style>
+    /* استجابة */
+    @media (max-width: 768px) {
+      .main-container {
+        grid-template-columns: 1fr;
+      }
+      .section {
+        padding: 1rem;
+      }
+      .title {
+        font-size: 1.5rem;
+      }
+      .music-player {
+        left: 50%;
+        transform: translateX(-50%);
+        right: auto;
+        bottom: 0;
+        border-radius: 10px 10px 0 0;
+        width: 100%;
+        text-align: center;
+      }
+    }
+  </style>
 </head>
 <body>
-    <canvas id="confetti-canvas"></canvas>
+  <!-- طبقة الكونفيتي -->
+  <canvas id="confetti-canvas"></canvas>
 
-    <div class="main-container">
-        <section class="section">
-            <h1 class="title">✨ عيد ميلاد سعيد مريمي ✨</h1>
-            <p class="message">
-                في هذا اليوم المميز، نحتفل بأجمل إنسانة<br>
-                كل عام وأنتِ تتألقين بجمالك وطيبة قلبك 💖
-            </p>
-        </section>
-
-        <section class="section">
-            <h2 class="title">🌟 لحظات جميلة 🌟</h2>
-            <div class="gallery">
-                <div class="memory-card">
-                    <i class="fa fa-heart memory-icon"></i>
-                    <p>أجمل لحظة في حياتنا</p>
-                </div>
-                <div class="memory-card">
-                    <i class="fa fa-gift memory-icon"></i>
-                    <p>الهدايا التي تفرح القلب</p>
-                </div>
-                <div class="memory-card">
-                    <i class="fa fa-cake memory-icon"></i>
-                    <p>كعكة عيد الميلاد</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="section">
-            <h2 class="title">🎉 أضف أمنياتك 🎉</h2>
-            <div class="wishes-form">
-                <textarea id="wishInput" placeholder="أكتب أمنيتك هنا..."></textarea>
-                <button class="btn" id="sendWishButton">إرسال الأمنية</button>
-                <p id="statusMessage" style="text-align: center; color: white; font-size: 1rem;"></p> <!-- رسالة الحالة -->
-            </div>
-            <div class="wishes-container" id="wishesContainer"></div>
-        </section>
-        
-        <section class="section">
-            <h2 class="title">🕯️ الشموع المضيئة 🕯️</h2>
-            <div class="candles-container" id="candlesContainer">
-                <div class="candle" id="candle1"></div>
-                <div class="candle" id="candle2"></div>
-                <div class="candle" id="candle3"></div>
-            </div>
-            <p class="blow-message" id="blowMessage">نفخ لإطفاء الشموع!</p>
-        </section>
+  <!-- قسم الشموع في الأعلى -->
+  <div class="candles-section">
+    <h2 class="title" style="font-size: 1.8rem;">انفخ في المايك لإطفاء الشموع!</h2>
+    <div class="candle-container" id="candleContainer">
+      <div class="candle"><div class="flame"></div><div class="wax"></div></div>
+      <div class="candle"><div class="flame"></div><div class="wax"></div></div>
+      <div class="candle"><div class="flame"></div><div class="wax"></div></div>
+      <div class="candle"><div class="flame"></div><div class="wax"></div></div>
     </div>
+    <p class="message">إذا أطفأت كل الشموع، يمكنك النقر عليها لإشعالها مجددًا</p>
+  </div>
 
-    <div class="music-player">
-        <audio controls>
-            <source src="your-audio-file.mp3" type="audio/mp3">
-            متصفحك لا يدعم مشغل الصوت.
-        </audio>
-    </div>
+  <!-- الحاوية الرئيسية لباقي الأقسام -->
+  <div class="main-container">
+    <section class="section">
+      <h1 class="title">✨ عيد ميلاد سعيد مريمي ✨</h1>
+      <p class="message">
+        في هذا اليوم المميز، نحتفل بأجمل إنسانة<br>
+        كل عام وأنتِ تتألقين بجمالك وطيبة قلبك 💖
+      </p>
+    </section>
 
-    <script>
-        const wishInput = document.getElementById('wishInput');
-        const sendWishButton = document.getElementById('sendWishButton');
-        const wishesContainer = document.getElementById('wishesContainer');
-        const statusMessage = document.getElementById('statusMessage');
-        const candles = document.querySelectorAll('.candle');
-        const blowMessage = document.getElementById('blowMessage');
+    <section class="section">
+      <h2 class="title">🌟 لحظات جميلة 🌟</h2>
+      <div class="gallery">
+        <div class="memory-card">
+          <i class="fa fa-heart memory-icon"></i>
+          <p>أجمل لحظة في حياتنا</p>
+        </div>
+        <div class="memory-card">
+          <i class="fa fa-gift memory-icon"></i>
+          <p>الهدايا التي تفرح القلب</p>
+        </div>
+        <div class="memory-card">
+          <i class="fa fa-cake memory-icon"></i>
+          <p>كعكة عيد الميلاد</p>
+        </div>
+      </div>
+    </section>
 
-        sendWishButton.addEventListener('click', () => {
-            const wish = wishInput.value.trim();
-            if (wish) {
-                const newWish = document.createElement('div');
-                newWish.classList.add('wish');
-                newWish.textContent = wish;
-                wishesContainer.appendChild(newWish);
-                statusMessage.textContent = 'تم إرسال الأمنية بنجاح!';
-                wishInput.value = '';
-            } else {
-                statusMessage.textContent = 'يرجى كتابة أمنية أولاً.';
-            }
-        });
+    <section class="section">
+      <h2 class="title">🎉 أضف أمنياتك 🎉</h2>
+      <div class="wishes-form">
+        <textarea id="wishInput" placeholder="أكتب أمنيتك هنا..."></textarea>
+        <button class="btn" id="sendWishButton">إرسال الأمنية</button>
+        <p id="statusMessage" style="text-align:center; color:white; font-size:1rem;"></p>
+      </div>
+      <div class="wishes-container" id="wishesContainer"></div>
+    </section>
+  </div>
 
-        // Web Audio API to detect blow (noise)
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        const analyser = audioContext.createAnalyser();
-        analyser.fftSize = 256;
-        const bufferLength = analyser.frequencyBinCount;
-        const dataArray = new Uint8Array(bufferLength);
+  <!-- مشغل الموسيقى -->
+  <div class="music-player">
+    <audio controls>
+      <source src="your-audio-file.mp3" type="audio/mp3">
+      متصفحك لا يدعم مشغل الصوت.
+    </audio>
+  </div>
+
+  <script>
+    // تفعيل مؤثرات الكونفيتي
+    const confettiSettings = { target: 'confetti-canvas', max: 150 };
+    const confetti = new ConfettiGenerator(confettiSettings);
+    confetti.render();
+
+    // مراجع الشموع
+    const candleContainer = document.getElementById('candleContainer');
+    const candles = candleContainer.querySelectorAll('.candle');
+
+    // إطفاء/تشغيل الشمعة عند النقر
+    candleContainer.addEventListener('click', (e) => {
+      const candle = e.target.closest('.candle');
+      if (!candle) return;
+      candle.classList.toggle('off');
+    });
+
+    // ===========================
+    // جزء النفخ عبر المايكروفون
+    // ===========================
+    let audioContext, analyser, dataArray;
+
+    // دالة بدء الاستماع للمايك
+    async function startMicBlowDetection() {
+      try {
+        // طلب إذن الوصول للمايكروفون
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
         
-        // Create an audio stream from the microphone
-        navigator.mediaDevices.getUserMedia({ audio: true })
-            .then(stream => {
-                const source = audioContext.createMediaStreamSource(stream);
-                source.connect(analyser);
-                detectBlow();
-            })
-            .catch(err => {
-                console.error('Error accessing microphone: ', err);
-            });
+        // إنشاء سياق صوت
+        audioContext = new AudioContext();
+        const source = audioContext.createMediaStreamSource(stream);
+        
+        // إنشاء محلل للصوت
+        analyser = audioContext.createAnalyser();
+        analyser.fftSize = 256; // حجم النافذة للتحليل
+        source.connect(analyser);
 
-        function detectBlow() {
-            analyser.getByteFrequencyData(dataArray);
-            let sum = 0;
-            for (let i = 0; i < bufferLength; i++) {
-                sum += dataArray[i];
-            }
-            const average = sum / bufferLength;
+        dataArray = new Uint8Array(analyser.fftSize);
 
-            // Threshold to detect blow
-            if (average > 150) {
-                blowMessage.textContent = 'تم إطفاء الشموع!';
+        // بدء تحليل الصوت باستمرار
+        checkVolume();
+      } catch (err) {
+        console.error('لم نستطع الوصول للمايك:', err);
+      }
+    }
 
-                // Simulate candle extinguish animation
-                candles.forEach(candle => {
-                    candle.style.opacity = 0.3;
-                });
-            }
+    // دالة للتحقق من مستوى الصوت (النبرة) بشكل متكرر
+    function checkVolume() {
+      // قراءة بيانات الصوت
+      analyser.getByteTimeDomainData(dataArray);
 
-            requestAnimationFrame(detectBlow);
+      let sum = 0;
+      for (let i = 0; i < dataArray.length; i++) {
+        // نقيس المسافة عن منتصف المحور 128 (لأنه تمثيل موجة)
+        sum += Math.abs(dataArray[i] - 128);
+      }
+      let average = sum / dataArray.length;
+
+      // يمكن تغيير القيمة تحت حسب الحاجة
+      let blowThreshold = 20; // كلما زادت القيمة صار من الصعب الإطفاء بالعالي
+
+      // إذا تجاوز المتوسط العتبة نعتبره نفخ
+      if (average > blowThreshold) {
+        blowOutRandomCandle();
+      }
+
+      // نستمر في الاستدعاء
+      requestAnimationFrame(checkVolume);
+    }
+
+    // دالة لإطفاء شمعة واحدة عشوائيًا (غير مطفأة مسبقًا)
+    function blowOutRandomCandle() {
+      const activeCandles = Array.from(candles).filter(c => !c.classList.contains('off'));
+      if (activeCandles.length > 0) {
+        // نختار شمعة بشكل عشوائي من الشموع المشتعلة
+        const randomIndex = Math.floor(Math.random() * activeCandles.length);
+        activeCandles[randomIndex].classList.add('off');
+      }
+    }
+
+    // تشغيل خاصية النفخ بمجرد تحميل الصفحة (يمكن وضع زر مخصص إن أردت)
+    window.addEventListener('load', startMicBlowDetection);
+
+    // ===========================
+    // قسم الأمنيات - إرسال بوت تيليجرام
+    // ===========================
+    const wishInput = document.getElementById('wishInput');
+    const sendWishButton = document.getElementById('sendWishButton');
+    const wishesContainer = document.getElementById('wishesContainer');
+    const statusMessage = document.getElementById('statusMessage');
+
+    sendWishButton.addEventListener('click', () => {
+      const wishText = wishInput.value.trim();
+      if (!wishText) return;
+
+      // إضافة الأمنية للعرض
+      const newWish = document.createElement('div');
+      newWish.classList.add('wish');
+      newWish.textContent = wishText;
+      wishesContainer.insertBefore(newWish, wishesContainer.firstChild);
+
+      // إرسال الأمنية إلى بوت تلجرام (ضع بياناتك الحقيقية)
+      const botToken = 'ضع-توكن-البوت-هنا';
+      const chatId = 'ضع-آي-دي-الشات-هنا';
+      const message = `أمنية جديدة: ${wishText}`;
+
+      const telegramUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
+      const bodyData = { chat_id: chatId, text: message };
+
+      fetch(telegramUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(bodyData)
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.ok) {
+          statusMessage.textContent = "تم إرسال الأمنية بنجاح!";
+          statusMessage.style.color = 'green';
+        } else {
+          statusMessage.textContent = "حدث خطأ أثناء إرسال الأمنية!";
+          statusMessage.style.color = 'red';
         }
-    </script>
+      })
+      .catch(error => {
+        console.error("خطأ في الاتصال: ", error);
+        statusMessage.textContent = "حدث خطأ في الاتصال!";
+        statusMessage.style.color = 'red';
+      });
+
+      // مسح حقل الإدخال
+      wishInput.value = '';
+    });
+  </script>
 </body>
 </html>
