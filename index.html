@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -109,6 +110,7 @@
       border-radius: 10px;
       cursor: pointer;
       transition: all 0.3s ease;
+      text-align: center;
     }
     .btn:hover {
       transform: scale(1.02);
@@ -225,6 +227,10 @@
   <!-- قسم الشموع في الأعلى -->
   <div class="candles-section">
     <h2 class="title" style="font-size: 1.8rem;">انفخ في المايك لإطفاء الشموع!</h2>
+    
+    <!-- زر تفعيل المايكروفون -->
+    <button id="startMicButton" class="btn" style="margin-bottom: 1rem;">تفعيل النفخ</button>
+
     <div class="candle-container" id="candleContainer">
       <div class="candle"><div class="flame"></div><div class="wax"></div></div>
       <div class="candle"><div class="flame"></div><div class="wax"></div></div>
@@ -298,12 +304,20 @@
       candle.classList.toggle('off');
     });
 
-    // ===========================
-    // جزء النفخ عبر المايكروفون
-    // ===========================
-    let audioContext, analyser, dataArray;
+    // زر بدء النفخ
+    const startMicButton = document.getElementById('startMicButton');
 
-    // دالة بدء الاستماع للمايك
+    // عناصر الصوت
+    let audioContext, analyser, dataArray;
+    let listening = false; // لمعرفة هل يعمل التحليل أم لا
+
+    // عند الضغط على زر تفعيل المايك
+    startMicButton.addEventListener('click', () => {
+      if (!listening) {
+        startMicBlowDetection();
+      }
+    });
+
     async function startMicBlowDetection() {
       try {
         // طلب إذن الوصول للمايكروفون
@@ -320,27 +334,34 @@
 
         dataArray = new Uint8Array(analyser.fftSize);
 
+        listening = true;
+        startMicButton.innerText = "النفخ مفعل ✔";
+        startMicButton.disabled = true;
+
         // بدء تحليل الصوت باستمرار
         checkVolume();
       } catch (err) {
         console.error('لم نستطع الوصول للمايك:', err);
+        alert("حدث خطأ أثناء طلب إذن الميكروفون. تأكد من السماح للمتصفح بالوصول للميكروفون أو جرّب بيئة HTTPS.");
       }
     }
 
-    // دالة للتحقق من مستوى الصوت (النبرة) بشكل متكرر
+    // دالة للتحقق من مستوى الصوت بشكل متكرر
     function checkVolume() {
+      if (!listening) return;
+
       // قراءة بيانات الصوت
       analyser.getByteTimeDomainData(dataArray);
 
       let sum = 0;
       for (let i = 0; i < dataArray.length; i++) {
-        // نقيس المسافة عن منتصف المحور 128 (لأنه تمثيل موجة)
+        // نقيس المسافة عن 128 (منتصف النطاق لموجة الصوت)
         sum += Math.abs(dataArray[i] - 128);
       }
       let average = sum / dataArray.length;
 
       // يمكن تغيير القيمة تحت حسب الحاجة
-      let blowThreshold = 20; // كلما زادت القيمة صار من الصعب الإطفاء بالعالي
+      let blowThreshold = 20; // عدّلها حسب حساسية المايك ونسبة الضوضاء
 
       // إذا تجاوز المتوسط العتبة نعتبره نفخ
       if (average > blowThreshold) {
@@ -360,9 +381,6 @@
         activeCandles[randomIndex].classList.add('off');
       }
     }
-
-    // تشغيل خاصية النفخ بمجرد تحميل الصفحة (يمكن وضع زر مخصص إن أردت)
-    window.addEventListener('load', startMicBlowDetection);
 
     // ===========================
     // قسم الأمنيات - إرسال بوت تيليجرام
