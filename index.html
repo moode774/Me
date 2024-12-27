@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>عيد ميلاد سعيد مريمي ❤️ - بالنفخ</title>
+  <title>عيد ميلاد سعيد مريمي ❤️</title>
   
   <!-- الخطوط -->
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
@@ -21,21 +20,40 @@
       box-sizing: border-box;
     }
     :root {
-      --primary-color: #ff6b8b;
-      --secondary-color: #7c5cff;
-      --accent-color: #ffd93d;
-      --text-color: #2c3e50;
+      --primary-color: #ff6b8b;      /* وردي فاتح */
+      --secondary-color: #7c5cff;    /* بنفسجي فاتح */
+      --accent-color: #ffd93d;       /* أصفر */
+      --text-color: #2c3e50;         /* أزرق داكن */
       --light-color: #ffffff;
     }
+
+    /* خلفية متحركة بتدرج لوني */
     body {
       font-family: 'Tajawal', sans-serif;
-      background: #000;
       min-height: 100vh;
       color: var(--text-color);
       padding: 1rem;
       overflow-x: hidden;
       position: relative;
+
+      /* خلفية متحركة بثلاثة ألوان */
+      background: linear-gradient(
+        270deg,
+        var(--primary-color),
+        var(--secondary-color),
+        var(--accent-color)
+      );
+      background-size: 600% 600%;
+      animation: gradientBG 12s ease infinite;
     }
+
+    /* حركة خلفية التدرج */
+    @keyframes gradientBG {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
     /* الحاوية الرئيسية */
     .main-container {
       max-width: 1200px;
@@ -45,23 +63,33 @@
       gap: 1.5rem;
       padding: 1rem;
     }
+    /* الأقسام */
     .section {
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.15);
       backdrop-filter: blur(20px);
       border-radius: 30px;
       padding: 1.5rem;
-      box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2);
+      box-shadow: 0 8px 32px rgba(31, 38, 135, 0.3);
       border: 1px solid rgba(255, 255, 255, 0.18);
       height: fit-content;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
     }
+    .section:hover {
+      transform: scale(1.02);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+    }
+
+    /* العناوين */
     .title {
       font-size: 2rem;
       background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       text-align: center;
-      margin-bottom: 1rem;
+      margin-bottom: 1.2rem;
     }
+
+    /* الرسائل */
     .message {
       font-size: 1.2rem;
       color: var(--light-color);
@@ -69,21 +97,40 @@
       text-align: center;
       margin: 1rem 0;
     }
+
+    /* المعرض والذكريات */
     .gallery {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
       gap: 1rem;
     }
     .memory-card {
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.2);
       border-radius: 15px;
       padding: 1rem;
       text-align: center;
       transition: transform 0.3s ease;
+      box-shadow: 0 4px 10px rgba(255,255,255,0.1);
+      position: relative;
+      overflow: hidden;
     }
     .memory-card:hover {
       transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
     }
+    .memory-icon {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      color: var(--light-color);
+      animation: pulseIcon 2s infinite;
+    }
+    /* حركة بسيطة للأيقونات */
+    @keyframes pulseIcon {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+
     /* نموذج الأمنيات */
     .wishes-form {
       display: flex;
@@ -96,10 +143,15 @@
       padding: 0.8rem;
       border-radius: 10px;
       border: 1px solid rgba(255, 255, 255, 0.2);
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.15);
       color: white;
       resize: vertical;
       min-height: 100px;
+      outline: none;
+      transition: box-shadow 0.3s ease;
+    }
+    #wishInput:focus {
+      box-shadow: 0 0 10px rgba(255,255,255,0.4);
     }
     .btn {
       padding: 0.8rem;
@@ -122,11 +174,17 @@
       gap: 1rem;
     }
     .wish {
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.2);
       padding: 1rem;
       border-radius: 10px;
       color: var(--light-color);
+      transition: transform 0.3s ease;
     }
+    .wish:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
     /* مشغل الموسيقى */
     .music-player {
       position: fixed;
@@ -159,11 +217,12 @@
       border-radius: 10px;
       position: relative;
       cursor: pointer;
-      box-shadow: 0 4px 10px rgba(255,255,255,0.2);
-      transition: transform 0.3s ease;
+      box-shadow: 0 4px 10px rgba(255,255,255,0.4);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     .candle:hover {
-      transform: translateY(-5px);
+      transform: translateY(-5px) rotate(-2deg);
+      box-shadow: 0 8px 15px rgba(0,0,0,0.2);
     }
     .flame {
       position: absolute;
@@ -224,24 +283,21 @@
   <!-- طبقة الكونفيتي -->
   <canvas id="confetti-canvas"></canvas>
 
-  <!-- قسم الشموع في الأعلى -->
+  <!-- قسم الشموع -->
   <div class="candles-section">
-    <h2 class="title" style="font-size: 1.8rem;">انفخ في المايك لإطفاء الشموع!</h2>
-    
-    <!-- زر تفعيل المايكروفون -->
-    <button id="startMicButton" class="btn" style="margin-bottom: 1rem;">تفعيل النفخ</button>
-
+    <h2 class="title" style="font-size: 1.8rem;">انقر على الشمعة لإطفائها أو إشعالها</h2>
     <div class="candle-container" id="candleContainer">
       <div class="candle"><div class="flame"></div><div class="wax"></div></div>
       <div class="candle"><div class="flame"></div><div class="wax"></div></div>
       <div class="candle"><div class="flame"></div><div class="wax"></div></div>
       <div class="candle"><div class="flame"></div><div class="wax"></div></div>
     </div>
-    <p class="message">إذا أطفأت كل الشموع، يمكنك النقر عليها لإشعالها مجددًا</p>
+    <p class="message">أضف لمستك واحتفل بأجمل اللحظات!</p>
   </div>
 
-  <!-- الحاوية الرئيسية لباقي الأقسام -->
+  <!-- الحاوية الرئيسية -->
   <div class="main-container">
+    <!-- قسم التهنئة -->
     <section class="section">
       <h1 class="title">✨ عيد ميلاد سعيد مريمي ✨</h1>
       <p class="message">
@@ -250,6 +306,7 @@
       </p>
     </section>
 
+    <!-- قسم اللحظات الجميلة -->
     <section class="section">
       <h2 class="title">🌟 لحظات جميلة 🌟</h2>
       <div class="gallery">
@@ -268,6 +325,7 @@
       </div>
     </section>
 
+    <!-- قسم الأمنيات -->
     <section class="section">
       <h2 class="title">🎉 أضف أمنياتك 🎉</h2>
       <div class="wishes-form">
@@ -293,98 +351,15 @@
     const confetti = new ConfettiGenerator(confettiSettings);
     confetti.render();
 
-    // مراجع الشموع
+    // منطق الشموع (انقر للإطفاء/التشغيل)
     const candleContainer = document.getElementById('candleContainer');
-    const candles = candleContainer.querySelectorAll('.candle');
-
-    // إطفاء/تشغيل الشمعة عند النقر
     candleContainer.addEventListener('click', (e) => {
       const candle = e.target.closest('.candle');
       if (!candle) return;
       candle.classList.toggle('off');
     });
 
-    // زر بدء النفخ
-    const startMicButton = document.getElementById('startMicButton');
-
-    // عناصر الصوت
-    let audioContext, analyser, dataArray;
-    let listening = false; // لمعرفة هل يعمل التحليل أم لا
-
-    // عند الضغط على زر تفعيل المايك
-    startMicButton.addEventListener('click', () => {
-      if (!listening) {
-        startMicBlowDetection();
-      }
-    });
-
-    async function startMicBlowDetection() {
-      try {
-        // طلب إذن الوصول للمايكروفون
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        
-        // إنشاء سياق صوت
-        audioContext = new AudioContext();
-        const source = audioContext.createMediaStreamSource(stream);
-        
-        // إنشاء محلل للصوت
-        analyser = audioContext.createAnalyser();
-        analyser.fftSize = 256; // حجم النافذة للتحليل
-        source.connect(analyser);
-
-        dataArray = new Uint8Array(analyser.fftSize);
-
-        listening = true;
-        startMicButton.innerText = "النفخ مفعل ✔";
-        startMicButton.disabled = true;
-
-        // بدء تحليل الصوت باستمرار
-        checkVolume();
-      } catch (err) {
-        console.error('لم نستطع الوصول للمايك:', err);
-        alert("حدث خطأ أثناء طلب إذن الميكروفون. تأكد من السماح للمتصفح بالوصول للميكروفون أو جرّب بيئة HTTPS.");
-      }
-    }
-
-    // دالة للتحقق من مستوى الصوت بشكل متكرر
-    function checkVolume() {
-      if (!listening) return;
-
-      // قراءة بيانات الصوت
-      analyser.getByteTimeDomainData(dataArray);
-
-      let sum = 0;
-      for (let i = 0; i < dataArray.length; i++) {
-        // نقيس المسافة عن 128 (منتصف النطاق لموجة الصوت)
-        sum += Math.abs(dataArray[i] - 128);
-      }
-      let average = sum / dataArray.length;
-
-      // يمكن تغيير القيمة تحت حسب الحاجة
-      let blowThreshold = 20; // عدّلها حسب حساسية المايك ونسبة الضوضاء
-
-      // إذا تجاوز المتوسط العتبة نعتبره نفخ
-      if (average > blowThreshold) {
-        blowOutRandomCandle();
-      }
-
-      // نستمر في الاستدعاء
-      requestAnimationFrame(checkVolume);
-    }
-
-    // دالة لإطفاء شمعة واحدة عشوائيًا (غير مطفأة مسبقًا)
-    function blowOutRandomCandle() {
-      const activeCandles = Array.from(candles).filter(c => !c.classList.contains('off'));
-      if (activeCandles.length > 0) {
-        // نختار شمعة بشكل عشوائي من الشموع المشتعلة
-        const randomIndex = Math.floor(Math.random() * activeCandles.length);
-        activeCandles[randomIndex].classList.add('off');
-      }
-    }
-
-    // ===========================
     // قسم الأمنيات - إرسال بوت تيليجرام
-    // ===========================
     const wishInput = document.getElementById('wishInput');
     const sendWishButton = document.getElementById('sendWishButton');
     const wishesContainer = document.getElementById('wishesContainer');
@@ -400,9 +375,9 @@
       newWish.textContent = wishText;
       wishesContainer.insertBefore(newWish, wishesContainer.firstChild);
 
-      // إرسال الأمنية إلى بوت تلجرام (ضع بياناتك الحقيقية)
+      // إرسال الأمنية إلى بوت تلجرام (عدّل التوكن والـ chat_id)
       const botToken = 'ضع-توكن-البوت-هنا';
-      const chatId = 'ضع-آي-دي-الشات-هنا';
+      const chatId = 'ضع-رقم-الشات-هنا';
       const message = `أمنية جديدة: ${wishText}`;
 
       const telegramUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
