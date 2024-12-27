@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>عيد ميلاد سعيد مريمي ❤️</title>
+  <title>احتفال فاخر - عيد ميلاد سعيد مريمي ❤️</title>
   
   <!-- الخطوط -->
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
@@ -54,16 +54,17 @@
       100% { background-position: 0% 50%; }
     }
 
-    /* الحاوية الرئيسية */
+    /* حاوية الكونتنت الأساسية */
     .main-container {
-      max-width: 1200px;
+      max-width: 1300px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
       gap: 1.5rem;
       padding: 1rem;
     }
-    /* الأقسام */
+
+    /* الأقسام بستايل فخم */
     .section {
       background: rgba(255, 255, 255, 0.15);
       backdrop-filter: blur(20px);
@@ -79,17 +80,17 @@
       box-shadow: 0 12px 40px rgba(0,0,0,0.2);
     }
 
-    /* العناوين */
+    /* عناوين */
     .title {
       font-size: 2rem;
       background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       text-align: center;
-      margin-bottom: 1.2rem;
+      margin-bottom: 1.5rem;
     }
 
-    /* الرسائل */
+    /* النصوص/الرسائل */
     .message {
       font-size: 1.2rem;
       color: var(--light-color);
@@ -201,7 +202,7 @@
       max-width: 250px;
     }
 
-    /* الشموع */
+    /* الشموع (للزينة فقط) */
     .candles-section {
       margin-bottom: 1.5rem;
       text-align: center;
@@ -216,7 +217,6 @@
       background: #fefefe;
       border-radius: 10px;
       position: relative;
-      cursor: pointer;
       box-shadow: 0 4px 10px rgba(255,255,255,0.4);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
@@ -252,8 +252,31 @@
         transform: translateX(-50%) scale(1.1);
       }
     }
-    .candle.off .flame {
-      display: none;
+
+    /* أقسام إضافية فاخرة */
+    .extra-section {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 30px;
+      padding: 2rem;
+      margin: 2rem 0;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      transition: transform 0.4s ease;
+    }
+    .extra-section:hover {
+      transform: scale(1.02);
+    }
+    .extra-section h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .extra-section p {
+      color: var(--light-color);
+      line-height: 1.8;
+      margin-bottom: 1rem;
     }
 
     /* استجابة */
@@ -276,65 +299,106 @@
         width: 100%;
         text-align: center;
       }
+      .extra-section {
+        margin: 1rem 0;
+        padding: 1rem;
+      }
+      .extra-section h2 {
+        font-size: 1.5rem;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- طبقة الكونفيتي -->
+  <!-- كونفيتي -->
   <canvas id="confetti-canvas"></canvas>
 
-  <!-- قسم الشموع -->
+  <!-- الشموع (زينة فقط) -->
   <div class="candles-section">
-    <h2 class="title" style="font-size: 1.8rem;">انقر على الشمعة لإطفائها أو إشعالها</h2>
-    <div class="candle-container" id="candleContainer">
+    <h2 class="title" style="font-size: 1.8rem;">✨ أجمل زينة لحفلة خيالية ✨</h2>
+    <div class="candle-container">
       <div class="candle"><div class="flame"></div><div class="wax"></div></div>
       <div class="candle"><div class="flame"></div><div class="wax"></div></div>
       <div class="candle"><div class="flame"></div><div class="wax"></div></div>
       <div class="candle"><div class="flame"></div><div class="wax"></div></div>
     </div>
-    <p class="message">أضف لمستك واحتفل بأجمل اللحظات!</p>
+    <p class="message">شموع متوهجة تمنح المكان أجواء ساحرة!</p>
   </div>
 
-  <!-- الحاوية الرئيسية -->
+  <!-- أقسام إضافية فاخرة قبل الحاوية الرئيسية -->
+  <div class="extra-section">
+    <h2>رسالة حب خاصة</h2>
+    <p>
+      إليكِ يا صاحبة القلب الأبيض والروح النقية؛ كل عام وأنتِ مصدر للإلهام والجمال.<br>
+      اجعلي من هذا العيد محطة جديدة للفرح، ولتنطلقي نحو أحلام لا حدود لها!
+    </p>
+    <p>
+      أخبرينا عن طموحاتك وآمالك، فنحن نؤمن بأن القادم أجمل وأفضل.<br>
+      أنتِ أهل لكل نجاح وسعادة، فليكتب لكِ القدر أروع الحكايات.
+    </p>
+  </div>
+
+  <!-- الحاوية الرئيسية للأقسام الأساسية -->
   <div class="main-container">
-    <!-- قسم التهنئة -->
+    <!-- قسم تهنئة -->
     <section class="section">
-      <h1 class="title">✨ عيد ميلاد سعيد مريمي ✨</h1>
+      <h1 class="title">عيد ميلاد سعيد مريمي ❤️</h1>
       <p class="message">
-        في هذا اليوم المميز، نحتفل بأجمل إنسانة<br>
-        كل عام وأنتِ تتألقين بجمالك وطيبة قلبك 💖
+        في هذا اليوم المميز، نحتفل بأجمل إنسانة على الإطلاق.<br>
+        كل عام وأنتِ تتألقين بجمالك وطيبة قلبك، وتحقّقين أحلامك الكبيرة!
       </p>
     </section>
 
     <!-- قسم اللحظات الجميلة -->
     <section class="section">
-      <h2 class="title">🌟 لحظات جميلة 🌟</h2>
+      <h2 class="title">لحظات جميلة</h2>
       <div class="gallery">
         <div class="memory-card">
           <i class="fa fa-heart memory-icon"></i>
-          <p>أجمل لحظة في حياتنا</p>
+          <p>أجمل لحظة لا تنسى</p>
         </div>
         <div class="memory-card">
           <i class="fa fa-gift memory-icon"></i>
-          <p>الهدايا التي تفرح القلب</p>
+          <p>الهدايا التي تُسعد القلب</p>
         </div>
         <div class="memory-card">
           <i class="fa fa-cake memory-icon"></i>
-          <p>كعكة عيد الميلاد</p>
+          <p>كعكة عيد الميلاد اللذيذة</p>
+        </div>
+        <div class="memory-card">
+          <i class="fa fa-star memory-icon"></i>
+          <p>أمنيات تضيء السماء</p>
         </div>
       </div>
     </section>
 
     <!-- قسم الأمنيات -->
     <section class="section">
-      <h2 class="title">🎉 أضف أمنياتك 🎉</h2>
+      <h2 class="title">أضف أمنياتك</h2>
       <div class="wishes-form">
-        <textarea id="wishInput" placeholder="أكتب أمنيتك هنا..."></textarea>
+        <textarea id="wishInput" placeholder="أكتب أمنيتك هنا..." dir="auto"></textarea>
         <button class="btn" id="sendWishButton">إرسال الأمنية</button>
         <p id="statusMessage" style="text-align:center; color:white; font-size:1rem;"></p>
       </div>
       <div class="wishes-container" id="wishesContainer"></div>
     </section>
+  </div>
+
+  <!-- قسم إضافي فاخر أسفل الصفحة -->
+  <div class="extra-section">
+    <h2>مقتطفات من الحياة</h2>
+    <p>
+      الحياة قصيرة ومليئة بالفرص، فلا تترددي في اقتناص أحلامك. <br>
+      احرصي أن يكون لكِ بصمة مميزة في كل خطوة تخطينها.
+    </p>
+    <p>
+      لا تنسي أن كل عام يمرّ هو فرصة جديدة لإضافة المزيد من الذكريات <br>
+      والإنجازات التي تستحق أن تخلّد في دفتر العمر.
+    </p>
+    <p>
+      فلتعم الفرحة أرجاء المكان، ولترقص الأمنيات احتفالاً بميلادك. <br>
+      أنتِِ نجمة ساطعة في سماء عائلتك وأصدقائك.
+    </p>
   </div>
 
   <!-- مشغل الموسيقى -->
@@ -347,17 +411,11 @@
 
   <script>
     // تفعيل مؤثرات الكونفيتي
-    const confettiSettings = { target: 'confetti-canvas', max: 150 };
+    const confettiSettings = { target: 'confetti-canvas', max: 200 };
     const confetti = new ConfettiGenerator(confettiSettings);
     confetti.render();
 
-    // منطق الشموع (انقر للإطفاء/التشغيل)
-    const candleContainer = document.getElementById('candleContainer');
-    candleContainer.addEventListener('click', (e) => {
-      const candle = e.target.closest('.candle');
-      if (!candle) return;
-      candle.classList.toggle('off');
-    });
+    // لا يوجد تفعيل/تعطيل للشموع، فهي للزينة فقط
 
     // قسم الأمنيات - إرسال بوت تيليجرام
     const wishInput = document.getElementById('wishInput');
